@@ -708,6 +708,9 @@ Fail:
   if (Map != NULL) { FreePool (Map); }
   if (Address != 0) { gBS->FreePages (Address, EFI_SIZE_TO_PAGES (WindowSize)); }
   Print (L"DARWINBOOT: boot refused: %r; firmware retained\n", Status);
+  // negroni (ios-sweet): keep the reason on screen before the menu redraws
+  DEBUG ((DEBUG_ERROR, "\fDARWINBOOT: boot refused: %r\n", Status));
+  gBS->Stall (20 * 1000 * 1000);
   return Status;
 }
 
